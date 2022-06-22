@@ -52,7 +52,7 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
 
                 if(playerLives > 0 && playerLives < 3) {
                     commandSender.playSound(commandSender.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
-                    commandSender.sendTitle(messages[playerLives - 1], "", 1, 10, 1);
+                    commandSender.sendTitle(messages[playerLives - 1], "", 20, 100, 20);
                 }
             }
 
@@ -87,12 +87,12 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
                 Bukkit.getOnlinePlayers().forEach(player -> {
                     if(player != selectedPlayer) {
                         player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0f, 1.0f);
-                        player.sendTitle(ChatColor.GREEN+ player.getDisplayName(), "you are not the hitman", 1, 10, 1);
+                        player.sendTitle(ChatColor.GREEN+ player.getDisplayName(), "you are not the hitman", 20, 100, 20);
                     }
                 });
 
                 selectedPlayer.playSound(selectedPlayer.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0f, 1.0f);
-                selectedPlayer.sendTitle(ChatColor.RED+ selectedPlayer.getDisplayName(), "you are the hitman", 1, 10, 1);
+                selectedPlayer.sendTitle(ChatColor.RED+ selectedPlayer.getDisplayName(), "you are the hitman", 20, 100, 20);
 
                 config.set("Assassin", String.valueOf(selectedPlayer.getUniqueId()));
                 saveConfig();
@@ -154,12 +154,12 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
         if(playerLives > 0 && playerLives < messages.length) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0f, 1.0f);
-                player.sendTitle(event.getEntity().getDisplayName(), messages[playerLives - 1], 1, 10, 1);
+                player.sendTitle(event.getEntity().getDisplayName(), messages[playerLives - 1], 20, 100, 20);
             }
         }
 
         if(playerLives >= 0 && playerLives < colors.length) {
-            event.getEntity().setPlayerListName(colors[playerLives] + event.getEntity().getDisplayName() + ChatColor.WHITE);
+            event.getEntity().setPlayerListName(Integer.toString(playerLives));//colors[playerLives] + event.getEntity().getDisplayName() + ChatColor.WHITE);
             event.getEntity().setDisplayName(colors[playerLives] + event.getEntity().getDisplayName() + ChatColor.WHITE);
         }
 
