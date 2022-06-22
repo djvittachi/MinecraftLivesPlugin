@@ -110,7 +110,7 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
     @EventHandler
     public void playerHasJoined(PlayerJoinEvent event) {
 
-        if(!(config.contains(event.getPlayer().getName()))){
+        if(!(config.contains(event.getPlayer().getUniqueId() + "Lives"))){
             //Set Player Lives To Three
             config.set(String.valueOf(event.getPlayer().getUniqueId() + "Lives"),3);
             saveConfig();
