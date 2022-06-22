@@ -45,18 +45,18 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
 
             if(currentLives == 3) {
                 commandSender.playSound(commandSender.getLocation(), Sound.BLOCK_BEACON_ACTIVATE,1.0f,1.0f);
-                commandSender.sendTitle(ChatColor.GREEN + "3", "" );
+                commandSender.sendTitle(ChatColor.GREEN + "3", "" , 1, 10, 1);
             }
 
             else if(currentLives == 2) {
                 commandSender.playSound(commandSender.getLocation(), Sound.BLOCK_BEACON_ACTIVATE,1.0f,1.0f);
-                commandSender.sendTitle(ChatColor.YELLOW + "2", "" );
+                commandSender.sendTitle(ChatColor.YELLOW + "2", "" , 1, 10, 1);
 
             }
 
             else if (currentLives == 1) {
                 commandSender.playSound(commandSender.getLocation(), Sound.BLOCK_BEACON_ACTIVATE,1.0f,1.0f);
-                commandSender.sendTitle(ChatColor.RED+ "1", "" );
+                commandSender.sendTitle(ChatColor.RED+ "1", "" , 1, 10, 1);
 
             }
 
@@ -91,12 +91,12 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
                 Bukkit.getOnlinePlayers().forEach(player -> {
                     if(player != selectedPlayer) {
                         player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0f, 1.0f);
-                        player.sendTitle(ChatColor.GREEN+ player.getDisplayName(), "you are not the hitman");
+                        player.sendTitle(ChatColor.GREEN+ player.getDisplayName(), "you are not the hitman", 1, 10, 1);
                     }
                 });
 
                 selectedPlayer.playSound(selectedPlayer.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0f, 1.0f);
-                selectedPlayer.sendTitle(ChatColor.RED+ selectedPlayer.getDisplayName(), "you are the hitman");
+                selectedPlayer.sendTitle(ChatColor.RED+ selectedPlayer.getDisplayName(), "you are the hitman", 1, 10, 1);
 
                 config.set("Assassin", String.valueOf(selectedPlayer.getUniqueId()));
                 saveConfig();
@@ -156,7 +156,7 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
         if(currentLives == 2) {
             for(Player player : Bukkit.getOnlinePlayers()) {
                 player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH,1.0f,1.0f);
-                player.sendTitle(event.getEntity().getDisplayName(), ChatColor.YELLOW + "Is in the yellow-zone");
+                player.sendTitle(event.getEntity().getDisplayName(), ChatColor.YELLOW + "Is in the yellow-zone", 1, 10, 1);
 
             }
             event.getEntity().setPlayerListName(ChatColor.YELLOW + event.getEntity().getDisplayName());
@@ -167,7 +167,7 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
         else if(currentLives == 1) {
             for(Player player : Bukkit.getOnlinePlayers()) {
                 player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH,1.0f,1.0f);
-                player.sendTitle(event.getEntity().getDisplayName(), ChatColor.RED + "Is in the red-zone");
+                player.sendTitle(event.getEntity().getDisplayName(), ChatColor.RED + "Is in the red-zone", 1, 10, 1);
             }
             event.getEntity().setPlayerListName(ChatColor.RED + event.getEntity().getDisplayName());
             event.getEntity().setDisplayName(ChatColor.RED + event.getEntity().getDisplayName());
@@ -177,7 +177,7 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
         if(currentLives == 0) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH,1.0f,1.0f);
-                player.sendTitle(event.getEntity().getDisplayName(), ChatColor.RED + "Has Been Eliminated");
+                player.sendTitle(event.getEntity().getDisplayName(), ChatColor.RED + "Has Been Eliminated", 1, 10, 1);
             }
             event.getEntity().setPlayerListName(ChatColor.GRAY + event.getEntity().getDisplayName());
             event.getEntity().setDisplayName(ChatColor.GRAY+ event.getEntity().getDisplayName());
