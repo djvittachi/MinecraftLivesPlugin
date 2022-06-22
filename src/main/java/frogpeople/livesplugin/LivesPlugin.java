@@ -86,7 +86,7 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
 
                 int selectedIndex = ThreadLocalRandom.current().nextInt(0, eligiblePlayers.size());
 
-                Player selectedPlayer = (Player) playerList[selectedIndex];
+                Player selectedPlayer = (Player) eligiblePlayers.get(selectedIndex);
 
                 Bukkit.getOnlinePlayers().forEach(player -> {
                     player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH,1.0f,1.0f);
