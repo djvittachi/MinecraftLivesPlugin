@@ -36,7 +36,7 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
         getCommand("roll").setExecutor(new RollCommand());
     }
 
-    public class LivesCommand implements CommandExecutor{
+    public class LivesCommand implements CommandExecutor {
 
         @Override
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -66,7 +66,7 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
     }
 
 
-    public class RollCommand implements CommandExecutor{
+    public class RollCommand implements CommandExecutor {
 
         @Override
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -140,10 +140,7 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
 
         }
 
-        }
-
-
-
+    }
 
     @EventHandler
     public void playerDeath(PlayerDeathEvent event){
