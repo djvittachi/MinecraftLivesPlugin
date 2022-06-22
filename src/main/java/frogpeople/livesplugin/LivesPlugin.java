@@ -42,19 +42,17 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             if(sender instanceof Player) {
                 Player commandSender = (Player) sender;
-                int currentLives = config.getInt(String.valueOf(commandSender.getUniqueId()) + "Lives");
+                int playerLives = config.getInt(String.valueOf(commandSender.getUniqueId()) + "Lives");
 
-                if (currentLives == 3) {
-                    commandSender.playSound(commandSender.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
-                    commandSender.sendTitle(ChatColor.GREEN + "3", "", 1, 10, 1);
-                } else if (currentLives == 2) {
-                    commandSender.playSound(commandSender.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
-                    commandSender.sendTitle(ChatColor.YELLOW + "2", "", 1, 10, 1);
+                String[] messages = {
+                        ChatColor.RED + "1",
+                        ChatColor.YELLOW + "2",
+                        ChatColor.GREEN + "3"
+                };
 
-                } else if (currentLives == 1) {
+                if(playerLives > 0 && playerLives < 3) {
                     commandSender.playSound(commandSender.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
-                    commandSender.sendTitle(ChatColor.RED + "1", "", 1, 10, 1);
-
+                    commandSender.sendTitle(messages[playerLives - 1], "", 1, 10, 1);
                 }
             }
 
@@ -117,71 +115,57 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
         //Change their tab color name
         int playerLives = config.getInt(event.getPlayer().getUniqueId() + "Lives");
 
-        if(playerLives == 3) {
-            event.getPlayer().setPlayerListName(ChatColor.GREEN + event.getPlayer().getDisplayName());
-            event.getPlayer().setDisplayName(ChatColor.GREEN + event.getPlayer().getDisplayName());
+        ChatColor[] colors = {
+                ChatColor.GRAY,
+                ChatColor.RED,
+                ChatColor.YELLOW,
+                ChatColor.GREEN
+        };
+
+        if(playerLives >= 0 && playerLives < colors.length) {
+            event.getPlayer().setPlayerListName(colors[playerLives] + event.getPlayer().getDisplayName());
+            event.getPlayer().setDisplayName(colors[playerLives] + event.getPlayer().getDisplayName());
         }
-
-        else if(playerLives == 2) {
-            event.getPlayer().setPlayerListName(ChatColor.YELLOW + event.getPlayer().getDisplayName());
-            event.getPlayer().setDisplayName(ChatColor.YELLOW + event.getPlayer().getDisplayName());
-        }
-
-        else if(playerLives == 1){
-            event.getPlayer().setPlayerListName(ChatColor.RED + event.getPlayer().getDisplayName());
-            event.getPlayer().setDisplayName(ChatColor.RED + event.getPlayer().getDisplayName());
-        }
-
-        else{
-            event.getPlayer().setPlayerListName(ChatColor.GRAY + event.getPlayer().getDisplayName());
-            event.getPlayer().setDisplayName(ChatColor.GRAY+ event.getPlayer().getDisplayName());
-
-        }
-
     }
 
     @EventHandler
-    public void playerDeath(PlayerDeathEvent event){
+    public void playerDeath(PlayerDeathEvent event) {
 
-        int currentLives = config.getInt(String.valueOf(event.getEntity().getUniqueId() + "Lives"));
-        currentLives -= 1;
+        int playerLives = config.getInt(String.valueOf(event.getEntity().getUniqueId() + "Lives"));
+        playerLives -= 1;
 
         //Adjust For Death
-        config.set(String.valueOf(event.getEntity().getUniqueId() + "Lives"),currentLives);
+        config.set(String.valueOf(event.getEntity().getUniqueId() + "Lives"), playerLives);
         saveConfig();
 
-        //Moves Into The Yellow Zone
-        if(currentLives == 2) {
-            for(Player player : Bukkit.getOnlinePlayers()) {
-                player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH,1.0f,1.0f);
-                player.sendTitle(event.getEntity().getDisplayName(), ChatColor.YELLOW + "Is in the yellow-zone", 1, 10, 1);
+        ChatColor[] colors = {
+                ChatColor.GRAY,
+                ChatColor.RED,
+                ChatColor.YELLOW,
+                ChatColor.GREEN
+        };
 
-            }
-            event.getEntity().setPlayerListName(ChatColor.YELLOW + event.getEntity().getDisplayName());
-            event.getEntity().setDisplayName(ChatColor.YELLOW + event.getEntity().getDisplayName());
-        }
+        String[] messages = {
+            ChatColor.YELLOW + "Is in the yellow-zone",
+            ChatColor.RED + "Is in the red-zone",
+            ChatColor.RED + "Has Been Eliminated"
+        };
 
-        //Moves Into The Red Zone
-        else if(currentLives == 1) {
-            for(Player player : Bukkit.getOnlinePlayers()) {
-                player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH,1.0f,1.0f);
-                player.sendTitle(event.getEntity().getDisplayName(), ChatColor.RED + "Is in the red-zone", 1, 10, 1);
-            }
-            event.getEntity().setPlayerListName(ChatColor.RED + event.getEntity().getDisplayName());
-            event.getEntity().setDisplayName(ChatColor.RED + event.getEntity().getDisplayName());
-        }
-
-        //Is Eliminated
-        if(currentLives == 0) {
+        if(playerLives > 0 && playerLives < messages.length) {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH,1.0f,1.0f);
-                player.sendTitle(event.getEntity().getDisplayName(), ChatColor.RED + "Has Been Eliminated", 1, 10, 1);
+                player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0f, 1.0f);
+                player.sendTitle(event.getEntity().getDisplayName(), messages[playerLives - 1], 1, 10, 1);
             }
-            event.getEntity().setPlayerListName(ChatColor.GRAY + event.getEntity().getDisplayName());
-            event.getEntity().setDisplayName(ChatColor.GRAY+ event.getEntity().getDisplayName());
+        }
+
+        if(playerLives >= 0 && playerLives < colors.length) {
+            event.getEntity().setPlayerListName(colors[playerLives] + event.getEntity().getDisplayName() + ChatColor.WHITE);
+            event.getEntity().setDisplayName(colors[playerLives] + event.getEntity().getDisplayName() + ChatColor.WHITE);
+        }
+
+        if (playerLives == 0) {
             event.getEntity().setGameMode(GameMode.SPECTATOR);
         }
-
     }
 
     @EventHandler
