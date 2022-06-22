@@ -149,6 +149,7 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
             for(Player player : Bukkit.getOnlinePlayers()) {
                 player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH,1.0f,1.0f);
                 player.sendTitle(event.getEntity().getDisplayName(), ChatColor.YELLOW + "Is in the yellow-zone");
+                player.setPlayerListName(ChatColor.YELLOW + player.getDisplayName());
             }
         }
 
@@ -157,6 +158,7 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
             for(Player player : Bukkit.getOnlinePlayers()) {
                 player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH,1.0f,1.0f);
                 player.sendTitle(event.getEntity().getDisplayName(), ChatColor.RED + "Is in the red-zone");
+                player.setPlayerListName(ChatColor.YELLOW + player.getDisplayName());
             }
         }
 
