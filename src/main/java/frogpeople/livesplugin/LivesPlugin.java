@@ -50,7 +50,7 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
                         ChatColor.GREEN + "3"
                 };
 
-                if(playerLives > 0 && playerLives < 3) {
+                if(playerLives > 0 && playerLives <= messages.length) {
                     commandSender.playSound(commandSender.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
                     commandSender.sendTitle(messages[playerLives - 1], "", 20, 100, 20);
                 }
@@ -151,16 +151,17 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
             ChatColor.RED + "Has Been Eliminated"
         };
 
+        // update the player's color before we sent a title
+        if(playerLives >= 0 && playerLives < colors.length) {
+            event.getEntity().setPlayerListName(colors[playerLives] + event.getEntity().getDisplayName());
+            event.getEntity().setDisplayName(colors[playerLives] + event.getEntity().getDisplayName() + ChatColor.WHITE);
+        }
+
         if(playerLives > 0 && playerLives < messages.length) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0f, 1.0f);
                 player.sendTitle(event.getEntity().getDisplayName(), messages[playerLives - 1], 20, 100, 20);
             }
-        }
-
-        if(playerLives >= 0 && playerLives < colors.length) {
-            event.getEntity().setPlayerListName(Integer.toString(playerLives));//colors[playerLives] + event.getEntity().getDisplayName() + ChatColor.WHITE);
-            event.getEntity().setDisplayName(colors[playerLives] + event.getEntity().getDisplayName() + ChatColor.WHITE);
         }
 
         if (playerLives == 0) {
