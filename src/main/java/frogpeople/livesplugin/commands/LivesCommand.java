@@ -1,6 +1,5 @@
 package frogpeople.livesplugin.commands;
 
-import frogpeople.livesplugin.main.LivesPlugin;
 import frogpeople.livesplugin.util.ConfigHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;

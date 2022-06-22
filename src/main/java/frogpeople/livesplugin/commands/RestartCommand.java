@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class RestartCommand implements CommandExecutor {
 
-    FileConfiguration config = ConfigHandler.getConfig();
+    // --Commented out by Inspection (22.06.2022 14:37):FileConfiguration config = ConfigHandler.getConfig();
 
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {

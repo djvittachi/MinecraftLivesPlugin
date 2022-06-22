@@ -1,6 +1,5 @@
 package frogpeople.livesplugin.listener;
 
-import frogpeople.livesplugin.main.LivesPlugin;
 import frogpeople.livesplugin.util.ConfigHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,7 +13,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class DeathHandler implements Listener {
 
-    FileConfiguration config = ConfigHandler.getConfig();
+    final FileConfiguration config = ConfigHandler.getConfig();
 
     @EventHandler
     public void playerDeath(PlayerDeathEvent event) {

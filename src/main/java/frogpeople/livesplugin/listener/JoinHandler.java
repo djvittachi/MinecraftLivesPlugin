@@ -9,14 +9,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class JoinHandler implements Listener {
 
-    FileConfiguration config = LivesPlugin.getInstance().getConfig();
+    final FileConfiguration config = LivesPlugin.getInstance().getConfig();
 
     @EventHandler
     public void playerHasJoined(PlayerJoinEvent event) {
 
         if (!(config.contains(event.getPlayer().getUniqueId() + "Lives"))) {
             //Set Player Lives To Three
-            config.set(String.valueOf(event.getPlayer().getUniqueId() + "Lives"), 3);
+            config.set(event.getPlayer().getUniqueId() + "Lives", 3);
             LivesPlugin.getInstance().saveConfig();
         }
 
