@@ -88,10 +88,15 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
 
                 Player selectedPlayer = (Player) eligiblePlayers.get(selectedIndex);
 
+                Bukkit.getOnlinePlayers().forEach(player -> {
+                    if(player != selectedPlayer) {
+                        player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0f, 1.0f);
+                        player.sendTitle(ChatColor.GREEN+ player.getDisplayName(), "you are not the hitman");
+                    }
+                });
 
-                selectedPlayer.playSound(selectedPlayer.getLocation(), Sound.ENTITY_WITHER_DEATH,1.0f,1.0f);
-                selectedPlayer.sendTitle(ChatColor.RED + selectedPlayer.getDisplayName(), "Is The Assassin");
-
+                selectedPlayer.playSound(selectedPlayer.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0f, 1.0f);
+                selectedPlayer.sendTitle(ChatColor.RED+ selectedPlayer.getDisplayName(), "you are the hitman");
 
                 config.set("Assassin", String.valueOf(selectedPlayer.getUniqueId()));
                 saveConfig();
