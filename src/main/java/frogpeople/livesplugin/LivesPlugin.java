@@ -80,8 +80,7 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
         @Override
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-            Object[] playerList = Bukkit.getOnlinePlayers().toArray();
-            ArrayList eligiblePlayers = new ArrayList();
+            ArrayList<Player> eligiblePlayers = new ArrayList();
 
             Bukkit.getOnlinePlayers().forEach(player -> {
                 if(config.getInt(player.getUniqueId() + "Lives") > 1 ) {
