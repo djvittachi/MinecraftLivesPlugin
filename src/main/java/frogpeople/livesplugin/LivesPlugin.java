@@ -3,6 +3,7 @@ package frogpeople.livesplugin;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -32,8 +33,8 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
 
         config = this.getConfig();
 
-        getCommand("lives").setExecutor(new LivesCommand());
-        getCommand("roll").setExecutor(new RollCommand());
+        Objects.requireNonNull(getCommand("lives")).setExecutor(new LivesCommand());
+        Objects.requireNonNull(getCommand("roll")).setExecutor(new RollCommand());
     }
 
     public class LivesCommand implements CommandExecutor {
@@ -172,23 +173,21 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
     @EventHandler
     public void playerDamage(EntityDamageByEntityEvent event) {
 
-
-        Entity aggressor = event.getDamager();
-        Entity defender = event.getEntity();
-        int aggressorLives = config.getInt(String.valueOf(aggressor.getUniqueId())+"Lives");
-        int defenderLives = config.getInt(String.valueOf(defender.getUniqueId())+"Lives");
-
-
-        //Entity receiving damage is player
-        if (event.getEntity() instanceof Player) {
-            //Aggressor Is Not Assassin
-            if(String.valueOf(aggressor.getUniqueId()) != config.getString("Assassin")) {
-                //Both Players Have More Than 2 Lives
-                if (aggressorLives > 1 && defenderLives > 1) {
-                    event.setCancelled(true);
-                }
-            }
-        }
+//        Entity aggressor = event.getDamager();
+//        Entity defender = event.getEntity();
+//        int aggressorLives = config.getInt(String.valueOf(aggressor.getUniqueId())+"Lives");
+//        int defenderLives = config.getInt(String.valueOf(defender.getUniqueId())+"Lives");
+//
+//        //Entity receiving damage is player
+//        if (event.getEntity() instanceof Player) {
+//            //Aggressor Is Not Assassin
+//            if(String.valueOf(aggressor.getUniqueId()) != config.getString("Assassin")) {
+//                //Both Players Have More Than 2 Lives
+//                if (aggressorLives > 1 && defenderLives > 1) {
+//                    event.setCancelled(true);
+//                }
+//            }
+//        }
     }
 
 
