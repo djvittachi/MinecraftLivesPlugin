@@ -53,7 +53,7 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
 
                 if(playerLives > 0 && playerLives <= messages.length) {
                     commandSender.playSound(commandSender.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
-                    commandSender.sendTitle(messages[playerLives - 1], "", 20, 100, 20);
+                    commandSender.sendTitle(messages[playerLives - 1], "Your current lives are: " + playerLives, 20, 100, 20);
                 }
             }
 
@@ -88,12 +88,12 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
                 Bukkit.getOnlinePlayers().forEach(player -> {
                     if(player != selectedPlayer) {
                         player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0f, 1.0f);
-                        player.sendTitle(ChatColor.GREEN+ player.getDisplayName(), "you are not the hitman", 20, 100, 20);
+                        player.sendTitle(ChatColor.GREEN + player.getName(), "you are not the hit man", 20, 100, 20);
                     }
                 });
 
                 selectedPlayer.playSound(selectedPlayer.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0f, 1.0f);
-                selectedPlayer.sendTitle(ChatColor.RED+ selectedPlayer.getDisplayName(), "you are the hitman", 20, 100, 20);
+                selectedPlayer.sendTitle(ChatColor.RED + selectedPlayer.getName(), "you are the hit man", 20, 100, 20);
 
                 config.set("Assassin", String.valueOf(selectedPlayer.getUniqueId()));
                 saveConfig();
@@ -124,8 +124,8 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
         };
 
         if(playerLives >= 0 && playerLives < colors.length) {
-            event.getPlayer().setPlayerListName(colors[playerLives] + event.getPlayer().getDisplayName());
-            event.getPlayer().setDisplayName(colors[playerLives] + event.getPlayer().getDisplayName());
+            event.getPlayer().setPlayerListName(colors[playerLives] + event.getPlayer().getName());
+            event.getPlayer().setDisplayName(colors[playerLives] + event.getPlayer().getName());
         }
     }
 
@@ -154,8 +154,8 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
 
         // update the player's color before we sent a title
         if(playerLives >= 0 && playerLives < colors.length) {
-            event.getEntity().setPlayerListName(colors[playerLives] + event.getEntity().getDisplayName());
-            event.getEntity().setDisplayName(colors[playerLives] + event.getEntity().getDisplayName() + ChatColor.WHITE);
+            event.getEntity().setPlayerListName(colors[playerLives] + event.getEntity().getName());
+            event.getEntity().setDisplayName(colors[playerLives] + event.getEntity().getName() + ChatColor.WHITE);
         }
 
         if(playerLives > 0 && playerLives < messages.length) {
