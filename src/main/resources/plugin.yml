@@ -1,6 +1,6 @@
 name: LivesPlugin
 version: '1.0'
-main: frogpeople.livesplugin.LivesPlugin
+main: frogpeople.livesplugin.main.LivesPlugin
 api-version: 1.19
 
 commands:
