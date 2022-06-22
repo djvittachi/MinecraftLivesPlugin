@@ -40,24 +40,22 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
 
         @Override
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-            Player commandSender = (Player) sender;
-            int currentLives = config.getInt(String.valueOf(commandSender.getUniqueId()) + "Lives");
+            if(sender instanceof Player) {
+                Player commandSender = (Player) sender;
+                int currentLives = config.getInt(String.valueOf(commandSender.getUniqueId()) + "Lives");
 
-            if(currentLives == 3) {
-                commandSender.playSound(commandSender.getLocation(), Sound.BLOCK_BEACON_ACTIVATE,1.0f,1.0f);
-                commandSender.sendTitle(ChatColor.GREEN + "3", "" , 1, 10, 1);
-            }
+                if (currentLives == 3) {
+                    commandSender.playSound(commandSender.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
+                    commandSender.sendTitle(ChatColor.GREEN + "3", "", 1, 10, 1);
+                } else if (currentLives == 2) {
+                    commandSender.playSound(commandSender.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
+                    commandSender.sendTitle(ChatColor.YELLOW + "2", "", 1, 10, 1);
 
-            else if(currentLives == 2) {
-                commandSender.playSound(commandSender.getLocation(), Sound.BLOCK_BEACON_ACTIVATE,1.0f,1.0f);
-                commandSender.sendTitle(ChatColor.YELLOW + "2", "" , 1, 10, 1);
+                } else if (currentLives == 1) {
+                    commandSender.playSound(commandSender.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
+                    commandSender.sendTitle(ChatColor.RED + "1", "", 1, 10, 1);
 
-            }
-
-            else if (currentLives == 1) {
-                commandSender.playSound(commandSender.getLocation(), Sound.BLOCK_BEACON_ACTIVATE,1.0f,1.0f);
-                commandSender.sendTitle(ChatColor.RED+ "1", "" , 1, 10, 1);
-
+                }
             }
 
             return true;
