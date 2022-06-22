@@ -35,6 +35,18 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
 
         Objects.requireNonNull(getCommand("lives")).setExecutor(new LivesCommand());
         Objects.requireNonNull(getCommand("roll")).setExecutor(new RollCommand());
+        Objects.requireNonNull(getCommand("restart")).setExecutor(new RestartCommand());
+    }
+
+    public class RestartCommand implements CommandExecutor {
+
+        @Override
+        public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+            //config.set(String.valueOf(event.getPlayer().getUniqueId() + "Lives"), 3);
+            //saveConfig();
+            return true;
+        }
+
     }
 
     public class LivesCommand implements CommandExecutor {
@@ -109,7 +121,7 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
 
         if(!(config.contains(event.getPlayer().getUniqueId() + "Lives"))){
             //Set Player Lives To Three
-            config.set(String.valueOf(event.getPlayer().getUniqueId() + "Lives"),3);
+            config.set(String.valueOf(event.getPlayer().getUniqueId() + "Lives"), 3);
             saveConfig();
         }
 
@@ -155,12 +167,12 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
         // update the player's color before we sent a title
         if(playerLives >= 0 && playerLives < colors.length) {
             event.getEntity().setPlayerListName(colors[playerLives] + event.getEntity().getName());
-            event.getEntity().setDisplayName(colors[playerLives] + event.getEntity().getName() + ChatColor.WHITE);
+            event.getEntity().setDisplayName(colors[playerLives] + event.getEntity().getName());
         }
 
         if(playerLives > 0 && playerLives < messages.length) {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0f, 1.0f);
+                player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1.0f, 1.0f);
                 player.sendTitle(event.getEntity().getDisplayName(), messages[playerLives - 1], 20, 100, 20);
             }
         }
