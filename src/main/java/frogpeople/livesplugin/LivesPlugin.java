@@ -121,18 +121,29 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
 
         if(playerLives == 3) {
             event.getPlayer().setPlayerListName(ChatColor.GREEN + event.getPlayer().getDisplayName());
+            event.getPlayer().setDisplayName(ChatColor.GREEN + event.getPlayer().getDisplayName());
         }
 
         else if(playerLives == 2) {
             event.getPlayer().setPlayerListName(ChatColor.YELLOW + event.getPlayer().getDisplayName());
+            event.getPlayer().setDisplayName(ChatColor.YELLOW + event.getPlayer().getDisplayName());
         }
 
         else if(playerLives == 1){
             event.getPlayer().setPlayerListName(ChatColor.RED + event.getPlayer().getDisplayName());
+            event.getPlayer().setDisplayName(ChatColor.RED + event.getPlayer().getDisplayName());
+        }
+
+        else{
+            event.getPlayer().setPlayerListName(ChatColor.GRAY + event.getPlayer().getDisplayName());
+            event.getPlayer().setDisplayName(ChatColor.GRAY+ event.getPlayer().getDisplayName());
+
+        }
+
         }
 
 
-    }
+
 
     @EventHandler
     public void playerDeath(PlayerDeathEvent event){
@@ -149,17 +160,20 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
             for(Player player : Bukkit.getOnlinePlayers()) {
                 player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH,1.0f,1.0f);
                 player.sendTitle(event.getEntity().getDisplayName(), ChatColor.YELLOW + "Is in the yellow-zone");
-                player.setPlayerListName(ChatColor.YELLOW + player.getDisplayName());
+
             }
+            event.getEntity().setPlayerListName(ChatColor.YELLOW + event.getEntity().getDisplayName());
+            event.getEntity().setDisplayName(ChatColor.YELLOW + event.getEntity().getDisplayName());
         }
 
         //Moves Into The Red Zone
-        if(currentLives == 1) {
+        else if(currentLives == 1) {
             for(Player player : Bukkit.getOnlinePlayers()) {
                 player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH,1.0f,1.0f);
                 player.sendTitle(event.getEntity().getDisplayName(), ChatColor.RED + "Is in the red-zone");
-                player.setPlayerListName(ChatColor.YELLOW + player.getDisplayName());
             }
+            event.getEntity().setPlayerListName(ChatColor.RED + event.getEntity().getDisplayName());
+            event.getEntity().setDisplayName(ChatColor.RED + event.getEntity().getDisplayName());
         }
 
         //Is Eliminated
@@ -168,6 +182,8 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
                 player.playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH,1.0f,1.0f);
                 player.sendTitle(event.getEntity().getDisplayName(), ChatColor.RED + "Has Been Eliminated");
             }
+            event.getEntity().setPlayerListName(ChatColor.GRAY + event.getEntity().getDisplayName());
+            event.getEntity().setDisplayName(ChatColor.GRAY+ event.getEntity().getDisplayName());
             event.getEntity().setGameMode(GameMode.SPECTATOR);
         }
 
