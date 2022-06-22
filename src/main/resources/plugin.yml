@@ -1,0 +1,10 @@
+name: LivesPlugin
+version: '1.0'
+main: frogpeople.livesplugin.LivesPlugin
+api-version: 1.19
+
+commands:
+  lives:
+    description: "Check how many lives you have left"
+  roll:
+    description: "Roll for the assassin"
