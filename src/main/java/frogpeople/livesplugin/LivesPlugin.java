@@ -115,6 +115,23 @@ public final class LivesPlugin extends JavaPlugin implements Listener {
             config.set(String.valueOf(event.getPlayer().getUniqueId() + "Lives"),3);
             saveConfig();
         }
+
+        //Change their tab color name
+        int playerLives = config.getInt(event.getPlayer().getUniqueId() + "Lives");
+
+        if(playerLives == 3) {
+            event.getPlayer().setPlayerListName(ChatColor.GREEN + event.getPlayer().getDisplayName());
+        }
+
+        else if(playerLives == 2) {
+            event.getPlayer().setPlayerListName(ChatColor.YELLOW + event.getPlayer().getDisplayName());
+        }
+
+        else if(playerLives == 1){
+            event.getPlayer().setPlayerListName(ChatColor.RED + event.getPlayer().getDisplayName());
+        }
+
+
     }
 
     @EventHandler
